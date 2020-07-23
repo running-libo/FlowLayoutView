@@ -4,9 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
     private FlowLayoutView flowLayoutView;
+    private String[] tagTextArray = new String[]{"天猫精灵", "充电台灯", "睡衣", "手表", "创意水杯", "夏天T恤男", "灯光机械键盘", "计算机原理", "学霸笔记本"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,8 +22,10 @@ public class MainActivity extends AppCompatActivity {
         flowLayoutView = findViewById(R.id.flowlayout);
 
         //循环添加标签子view
-        for (int i=0;i<4;i++) {
+        for (int i = 0; i < tagTextArray.length; i++) {
             View view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.item_tagview, null);
+            TextView tvContent = view.findViewById(R.id.tv_content);
+            tvContent.setText(tagTextArray[i]);
             flowLayoutView.addView(view);
         }
     }

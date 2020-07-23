@@ -29,15 +29,16 @@ public class FlowLayoutView extends ViewGroup {
         int widthMode = MeasureSpec.getMode(widthMeasureSpec);
         int heightMode = MeasureSpec.getMode(heightMeasureSpec);
 
-        int childWidth = width-getPaddingLeft()-getPaddingRight();
-        int childHeight = height-getPaddingTop()-getPaddingBottom();
-
-        int childWidthSpec = MeasureSpec.makeMeasureSpec(childWidth, widthMode);
-        int childHeightSpec = MeasureSpec.makeMeasureSpec(childHeight, heightMode);
+        int contentWidth = width - getPaddingLeft() - getPaddingRight();  //内部宽度
+        int contentHeight = height - getPaddingTop() - getPaddingBottom();  //内部高度
 
         //设置每个子view宽高
-        for (int i=0;i<getChildCount();i++) {
+        for (int i = 0; i < getChildCount(); i++) {
             View childView = getChildAt(i);
+
+            //给子view设置AT_MOST模式，即布局属性为wrapcontent
+            int childWidthSpec = MeasureSpec.makeMeasureSpec(contentWidth, widthMode == MeasureSpec.EXACTLY ? MeasureSpec.AT_MOST : widthMode);
+            int childHeightSpec = MeasureSpec.makeMeasureSpec(contentHeight, heightMode == MeasureSpec.EXACTLY ? MeasureSpec.AT_MOST : heightMode);
             childView.measure(childWidthSpec, childHeightSpec);
         }
 
@@ -47,9 +48,12 @@ public class FlowLayoutView extends ViewGroup {
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
-        for (int i=0;i<getChildCount();i++) {
+        int padding = 30;//当前序号子view的左边距
+        for (int i = 0; i < getChildCount(); i++) {
             View childView = getChildAt(i);
             childView.layout(l, t, r, b);
+
+            l = l + childView.getMeasuredWidth() + padding;  //每个起始位置修改
         }
     }
 
