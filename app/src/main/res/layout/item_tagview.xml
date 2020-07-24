@@ -8,12 +8,12 @@
         android:id="@+id/tv_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="13sp"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
-        android:paddingTop="8dp"
+        android:textSize="12sp"
+        android:paddingLeft="13dp"
+        android:paddingRight="13dp"
+        android:paddingTop="7dp"
+        android:paddingBottom="7dp"
         android:textColor="#191F25"
-        android:paddingBottom="8dp"
         android:background="@drawable/shape_tag"
         toosl:text="标签"/>
 </RelativeLayout>
