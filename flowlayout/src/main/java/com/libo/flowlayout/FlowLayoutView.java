@@ -1,4 +1,4 @@
-package com.example.flowlayoutview;
+package com.libo.flowlayout;
 
 import android.content.Context;
 import android.util.AttributeSet;

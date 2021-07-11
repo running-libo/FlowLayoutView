@@ -7,7 +7,7 @@
     android:background="#fff"
     tools:context=".MainActivity">
 
-    <com.example.flowlayoutview.FlowLayoutView
+    <com.libo.flowlayout.FlowLayoutView
         android:id="@+id/flowlayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
