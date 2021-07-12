@@ -1,0 +1,60 @@
+apply plugin: 'maven-publish'
+apply plugin: 'signing'
+
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from components.release
+                groupId = 'io.github.running-libo'
+                artifactId = project.name
+                version = '1.0.0' //后缀SNAPSHOT为快照版本
+//                artifact generateSourcesJar
+
+                project.ext["signing.keyId"] = "55ECE4FE" //GPG指纹后8位
+                project.ext["signing.password"] = "18380438200" //GPG密码
+                project.ext["signing.secretKeyRingFile"] = "/myfile/maven_upload_pub_sec/libo_0x55ECE4FE_SECRET.gpg" //GPG私钥
+
+                pom {
+                    name = "flowlayout"
+                    description = "noting to description"
+                    url = "https://github.com/running-libo"
+                    licenses {
+                        license {
+                            name = "The Apache License, Version 2.0"
+                            url = "http://www.apache.org/licenses/LICENSE-2.0.txt"
+                        }
+                    }
+                    developers {
+                        developer {
+                            id = "libo"
+                            name = "libo"
+                            email = "417845639@qq.com"
+                        }
+                    }
+                    scm {
+                        connection = "scm:svn:http://github.com/running-libo"
+                        developerConnection = "scm:svn:https://github.com/running-libo"
+                        url = "http://github.com/running-libo"
+                    }
+                }
+            }
+        }
+
+        repositories {
+            maven {
+                // release  https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/
+                name = 'sonatypeRepository'
+//                url = "https://s01.oss.sonatype.org/content/repositories/snapshots/" //快照
+                url = "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
+                credentials {  //sonatype平台账号密码
+                    username = "libobo"
+                    password = "4DZVdcvIvDwJSY\$F"
+                }
+            }
+        }
+    }
+    project.signing {
+        sign project.publishing.publications
+    }
+}
